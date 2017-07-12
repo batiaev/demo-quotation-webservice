@@ -1,6 +1,7 @@
 package com.batiaev.demo.quotes.repository;
 
 import com.batiaev.demo.quotes.model.Currency;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
  * @author anton
  * @since 13/07/17
  */
+@Repository
 public class CurrencyRepositoryImpl implements CurrencyRepository {
 
     private Map<Integer, Currency> currencies = new HashMap<>();

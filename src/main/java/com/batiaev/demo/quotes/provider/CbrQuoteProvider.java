@@ -26,6 +26,7 @@ import static java.lang.String.format;
  * @since 13/07/17
  */
 @Slf4j
+@Service
 public class CbrQuoteProvider implements QuoteProvider {
 
     private final String url = "http://www.cbr.ru/scripts/XML_daily.asp";
@@ -63,6 +64,11 @@ public class CbrQuoteProvider implements QuoteProvider {
                 date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))), CbrDailyQuoteResponse.class);
 
         return getQuotes(data);
+    }
+
+    @Override
+    public void clean() {
+        quotes.clear();
     }
 
     private List<Quote> getQuotes(CbrDailyQuoteResponse data) {

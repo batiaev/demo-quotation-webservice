@@ -20,4 +20,7 @@ public interface QuoteProvider {
     }
 
     List<Quote> getQuotes(LocalDate date);
+
+    default void clean() {
+    }
 }
