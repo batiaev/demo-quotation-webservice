@@ -1,5 +1,8 @@
 # Demo: Spring RESTful quotation webservice
 
+[![Build Status](https://travis-ci.org/Batiaev/demo-quotation-webservice.svg)](https://travis-ci.org/Batiaev/demo-quotation-webservice)
+[![license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+
 Webinar https://geekbrains.ru/events/631
 
 ## Build
