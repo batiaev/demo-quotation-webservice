@@ -7,6 +7,7 @@ targetCompatibility = 1.8
 
 ext {
     junitVersion = '4.12'
+    swaggerVersion = '2.6.1'
 }
 
 repositories {
@@ -15,6 +16,8 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+    compile "io.springfox:springfox-swagger2:${swaggerVersion}"
 
     testCompile "junit:junit:${junitVersion}"
 }

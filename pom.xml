@@ -6,15 +6,19 @@
     <groupId>com.batiaev.demo</groupId>
     <artifactId>demo-quotation-webservice</artifactId>
     <version>0.1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>demo-quotation-webservice</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.2.RELEASE</version>
     </parent>
 
     <properties>
         <java.version>1.8</java.version>
+        <swagger.version>2.6.1</swagger.version>
     </properties>
 
     <dependencies>
@@ -23,17 +27,28 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${parent.version}</version>
             </plugin>
         </plugins>
     </build>
