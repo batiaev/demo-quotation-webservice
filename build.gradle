@@ -7,7 +7,9 @@ targetCompatibility = 1.8
 
 ext {
     junitVersion = '4.12'
+    lombokVersion = '1.16.16'
     swaggerVersion = '2.6.1'
+    jsr310 = '2.8.8'
 }
 
 repositories {
@@ -15,9 +17,12 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile "org.springframework.boot:spring-boot-starter-web"
+
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jsr310}"
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+    compile "org.projectlombok:lombok:${lombokVersion}"
 
     testCompile "junit:junit:${junitVersion}"
 }
