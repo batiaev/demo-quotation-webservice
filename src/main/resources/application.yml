@@ -1,0 +1,4 @@
+server.contextPath: /quotes
+server.port: 9000
+
+api.version: 0.1.0
