@@ -57,9 +57,9 @@ public class CbrQuoteProvider implements QuoteProvider {
 
     @Override
     public List<Quote> getQuotes(LocalDate date) {
-        log.info("Load cbr quotes at date {}...", date);
         if (quotes.containsKey(date)) return quotes.get(date);
 
+        log.info("Load cbr quotes at date {}...", date);
         CbrDailyQuoteResponse data = restTemplate.getForObject(format(historicalUrl,
                 date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))), CbrDailyQuoteResponse.class);
 

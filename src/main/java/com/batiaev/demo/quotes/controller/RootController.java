@@ -1,14 +1,13 @@
 package com.batiaev.demo.quotes.controller;
 
+import com.batiaev.demo.quotes.model.Currency;
 import com.batiaev.demo.quotes.model.Quote;
 import com.batiaev.demo.quotes.provider.QuoteProvider;
+import com.batiaev.demo.quotes.repository.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
@@ -26,6 +25,9 @@ import java.util.Map;
 public class RootController {
     private final Map<String, Object> appInfo = new HashMap<>();
 
+    @Autowired
+    private CurrencyRepository currencyRepository;
+
     @Value("${api.version:0.1.0}")
     private String apiVersion;
 
@@ -42,9 +44,14 @@ public class RootController {
         appInfo.put("api.version", apiVersion);
     }
 
-    @DeleteMapping
+    @DeleteMapping(value = "/cleanup")
     public void cleanup() {
         quoteProvider.clean();
+    }
+
+    @PostMapping(value = "/reload")
+    public ResponseEntity<List<Quote>> reload() {
+        return ResponseEntity.ok(quoteProvider.getQuotes());
     }
 
     @GetMapping(value = "/status")
@@ -52,12 +59,21 @@ public class RootController {
         return ResponseEntity.ok(appInfo);
     }
 
-
     @GetMapping(value = "/quotes")
-    public ResponseEntity<List<Quote>> quotes(@RequestParam(value = "date", required = false) LocalDate date) {
+    public ResponseEntity<List<Quote>> getQuotes(@RequestParam(value = "date", required = false) LocalDate date) {
         if (date == null)
             return ResponseEntity.ok(quoteProvider.getQuotes());
         else
             return ResponseEntity.ok(quoteProvider.getQuotes(date));
+    }
+
+    @GetMapping("/currencies")
+    public ResponseEntity<?> getCurrencies() {
+        return ResponseEntity.ok(currencyRepository.getAll());
+    }
+
+    @GetMapping("/currencies/rub")
+    public ResponseEntity<Currency> getRubCurrency() {
+        return ResponseEntity.ok(currencyRepository.getRub());
     }
 }
