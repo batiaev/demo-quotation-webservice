@@ -1,4 +1,4 @@
-package com.batiaev.demo.quotes.model;
+package com.batiaev.demo.quotes.dto;
 
 import lombok.Getter;
 

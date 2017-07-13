@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  * Currency
@@ -12,10 +13,10 @@ import lombok.NoArgsConstructor;
  * @since 13/07/17
  */
 @Data
-@EqualsAndHashCode(of = "code")
+@EqualsAndHashCode(of = "code", callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Currency {
+public class Currency extends ResourceSupport {
     private int code;
     private String currCode;
     private String name;

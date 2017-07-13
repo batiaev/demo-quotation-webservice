@@ -1,6 +1,6 @@
 package com.batiaev.demo.quotes.provider;
 
-import com.batiaev.demo.quotes.model.CbrDailyQuoteResponse;
+import com.batiaev.demo.quotes.dto.CbrDailyQuoteResponse;
 import com.batiaev.demo.quotes.model.Currency;
 import com.batiaev.demo.quotes.model.Quote;
 import com.batiaev.demo.quotes.repository.CurrencyRepository;

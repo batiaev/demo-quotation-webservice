@@ -1,11 +1,14 @@
 package com.batiaev.demo.quotes.controller;
 
+import com.batiaev.demo.quotes.exception.QuotesException;
 import com.batiaev.demo.quotes.model.Currency;
 import com.batiaev.demo.quotes.model.Quote;
 import com.batiaev.demo.quotes.provider.QuoteProvider;
 import com.batiaev.demo.quotes.repository.CurrencyRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +18,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 /**
  * RootController
  *
  * @author anton
  * @since 13/07/17
  */
+@Slf4j
 @RestController
 public class RootController {
     private final Map<String, Object> appInfo = new HashMap<>();
@@ -72,8 +79,26 @@ public class RootController {
         return ResponseEntity.ok(currencyRepository.getAll());
     }
 
+    @GetMapping("/currencies/{code}")
+    public ResponseEntity<Currency> getRubCurrency(@PathVariable(value = "code") int code) {
+
+        Currency currency = currencyRepository.get(code);
+        if (currency == null) throw new QuotesException("currency not found!");
+
+        return ResponseEntity.ok(currency);
+    }
+
     @GetMapping("/currencies/rub")
     public ResponseEntity<Currency> getRubCurrency() {
-        return ResponseEntity.ok(currencyRepository.getRub());
+
+        Currency rub = currencyRepository.getRub();
+        rub.add(linkTo(methodOn(RootController.class).getRubCurrency()).withSelfRel());
+        return ResponseEntity.ok(rub);
+    }
+
+    @ExceptionHandler(QuotesException.class)
+    @ResponseStatus(value= HttpStatus.BAD_REQUEST, reason="Currency not found")
+    public void exceptionHandler(QuotesException e) {
+        log.error("REST api exception", e);
     }
 }
